@@ -57,6 +57,7 @@ export default Ember.Component.extend({
 
   localStorageKey: 'spectrum-color-picker',
 
+  dataDownActionUp: false,
   updatePalette: Ember.observer('palette', function () {
     this.$().spectrum('option', 'palette', this.get('palette'));
   }),
@@ -96,7 +97,7 @@ export default Ember.Component.extend({
       togglePaletteMoreText: this.get('togglePaletteMoreText'),
       togglePaletteLessText: this.get('togglePaletteLessText'),
       appendTo: this.get('appendTo'),
-      localStorageKey: this.get('localStorageKey')
+      localStorageKey: this.get('localStorageKey'),
     };
   },
 
@@ -106,7 +107,7 @@ export default Ember.Component.extend({
       let color = newColor ? newColor.toString() : null;
       let onChange = self.get('onChange');
 
-      if (!self.isDestroyed) {
+      if (!self.isDestroyed && self.get('dataDownActionUp') !== true) {
         self.set('color', color);
       }
 
